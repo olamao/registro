@@ -8,7 +8,6 @@ import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -20,18 +19,17 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.example.fendipetroleo.pages.HomePage
-import com.example.fendipetroleo.pages.NotificationPage
+import com.example.fendipetroleo.pages.AsistoPage
+import com.example.fendipetroleo.pages.InformacionPage
 import com.example.fendipetroleo.pages.SettingsPage
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(inputViewModel: AgenteViewModel, modifier: Modifier = Modifier) {
 
     val navItemList = listOf(
-        NavItem("Home", Icons.Default.Home,0),
-        NavItem("Notification", Icons.Default.Notifications,0),
+        NavItem("Informacion", Icons.Default.Home,0),
+        NavItem("Asisto", Icons.Default.Notifications,0),
         NavItem("Settings", Icons.Default.Settings,0),
     )
 
@@ -40,7 +38,8 @@ fun MainScreen(inputViewModel: AgenteViewModel, modifier: Modifier = Modifier) {
     }
 
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize(),
         bottomBar = {
             NavigationBar {
                 navItemList.forEachIndexed { index, navItem ->
@@ -72,12 +71,11 @@ fun MainScreen(inputViewModel: AgenteViewModel, modifier: Modifier = Modifier) {
     }
 }
 
-
 @Composable
 fun ContentScreen(inputViewModel: AgenteViewModel, modifier: Modifier = Modifier, selectedIndex : Int) {
     when(selectedIndex){
-        0-> HomePage(inputViewModel)
-        1-> NotificationPage()
+        0-> InformacionPage()
+        1-> AsistoPage(inputViewModel)
         2-> SettingsPage()
     }
 }
