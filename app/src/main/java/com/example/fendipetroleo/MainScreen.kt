@@ -1,5 +1,6 @@
 package com.example.fendipetroleo
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -20,12 +21,12 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.example.fendipetroleo.pages.HomePage
 import com.example.fendipetroleo.pages.NotificationPage
 import com.example.fendipetroleo.pages.SettingsPage
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(inputViewModel: AgenteViewModel, modifier: Modifier = Modifier) {
 
@@ -40,7 +41,8 @@ fun MainScreen(inputViewModel: AgenteViewModel, modifier: Modifier = Modifier) {
     }
 
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize(),
         bottomBar = {
             NavigationBar {
                 navItemList.forEachIndexed { index, navItem ->
