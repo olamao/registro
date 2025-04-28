@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                 applicationContext,
                 SaleDatabase::class.java, "volumen"
             )
-                .createFromAsset("sqlitedatabase.db")
+                .createFromAsset("saleTable.db")
                 .build()
 
             // Initialize the DAO
