@@ -40,6 +40,12 @@ class MainActivity : ComponentActivity() {
                 .createFromAsset("sqlitedatabase.db")
                 .build()
 
+            database2 = Room.databaseBuilder(
+                applicationContext,
+                SaleDatabase::class.java, "volumen"
+            )
+                .createFromAsset("sqlitedatabase.db")
+                .build()
 
             // Initialize the DAO
             val agenteDao = database1.agenteDao()

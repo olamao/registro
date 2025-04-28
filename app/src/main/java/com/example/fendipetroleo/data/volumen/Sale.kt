@@ -10,7 +10,7 @@ data class Sale(
     val saleIndex: Int?,
 
     @ColumnInfo(name = "anno")
-    val departamento: Int?,
+    val anno: Int?,
 
     @ColumnInfo(name = "mes")
     val mes: Int?,
