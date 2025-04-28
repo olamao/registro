@@ -12,12 +12,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.example.fendipetroleo.data.agente.AgenteDatabase
 import com.example.fendipetroleo.data.agente.AgenteRepository
+import com.example.fendipetroleo.data.volumen.SaleDatabase
+import com.example.fendipetroleo.data.volumen.SaleRepository
 import com.example.fendipetroleo.ui.theme.FendipetroleoTheme
 
 class MainActivity : ComponentActivity() {
 
-    private lateinit var database: AgenteDatabase
-    private lateinit var repository: AgenteRepository
+    private lateinit var database1: AgenteDatabase
+    private lateinit var database2: SaleDatabase
+    private lateinit var repository1: AgenteRepository
+    private lateinit var repository2: SaleRepository
     private lateinit var viewModelFactory: AgenteViewModelFactory
     private lateinit var viewModel: AgenteViewModel
 
@@ -29,7 +33,7 @@ class MainActivity : ComponentActivity() {
             // Initialize the database
 
 
-            database = Room.databaseBuilder(
+            database1 = Room.databaseBuilder(
                 applicationContext,
                 AgenteDatabase::class.java, "agentes"
             )
@@ -38,11 +42,13 @@ class MainActivity : ComponentActivity() {
 
 
             // Initialize the DAO
-            val agenteDao = database.agenteDao()
+            val agenteDao = database1.agenteDao()
+            val saleDao = database2.saleDao()
             // Initialize the repository
-            repository = AgenteRepository(agenteDao)
+            repository1 = AgenteRepository(agenteDao)
+            repository2 = SaleRepository(saleDao)
             // Initialize the factory
-            viewModelFactory = AgenteViewModelFactory(repository)
+            viewModelFactory = AgenteViewModelFactory(repository1, repository2)
             // Initialize the viewmodel
             viewModel = ViewModelProvider(this, viewModelFactory)[AgenteViewModel::class.java]
 
