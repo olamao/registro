@@ -62,7 +62,7 @@ fun AsistoPage(inputViewModel: AgenteViewModel, modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.SemiBold,
                 color = Color.Black
             )
-            clickedButton = SingleChoiceSegmentedButton()
+            clickedButton = singleChoiceSegmentedButton()
         }
         displayRegistro = if(clickedButton == 1){
             true
@@ -71,7 +71,7 @@ fun AsistoPage(inputViewModel: AgenteViewModel, modifier: Modifier = Modifier) {
         }
         Row(verticalAlignment = Alignment.CenterVertically){
             DisplayText(displayRegistro)
-            typedCode = DisplayTextField(displayRegistro)
+            typedCode = displayTextField(displayRegistro)
         }
 
         val myDigit = transformContent(typedCode)
@@ -86,7 +86,7 @@ fun AsistoPage(inputViewModel: AgenteViewModel, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun SingleChoiceSegmentedButton(modifier: Modifier = Modifier) : Int{
+fun singleChoiceSegmentedButton(modifier: Modifier = Modifier) : Int{
     var selectedIndex by remember { mutableIntStateOf(0) }
     val options = listOf("No", "Si")
 
@@ -117,14 +117,14 @@ fun DisplayText(display: Boolean) {
     Text(
         modifier = Modifier
             .padding(top = 10.dp),
-        text = "Digite código SICOM \t",
-        fontSize = 20.sp,
+        text = "código SICOM del aportante \t",
+        fontSize = 10.sp,
         fontWeight = FontWeight.Bold,
         color = displayColor
     )}
 
 @Composable
-fun DisplayTextField(display: Boolean): String {
+fun displayTextField(display: Boolean): String {
     var displayAlpha = if(display){
         1f
     }else{
@@ -132,12 +132,16 @@ fun DisplayTextField(display: Boolean): String {
     }
 
     var typedText by remember { mutableStateOf("") }
-    TextField(modifier = Modifier
-        .alpha(displayAlpha),
+    TextField(
+        modifier = Modifier
+            .alpha(displayAlpha),
         value = typedText,
         onValueChange = { typedText = it },
         enabled = display,
-        // label = { Text("Label") }
+        singleLine = true,
+        label = { Text(
+            text="Solo ingresar 6 primeros números",
+            fontSize = 10.sp,) }
     )
     return typedText
 }

@@ -23,7 +23,6 @@ import com.example.fendipetroleo.pages.AsistoPage
 import com.example.fendipetroleo.pages.InformacionPage
 import com.example.fendipetroleo.pages.SettingsPage
 
-
 @Composable
 fun MainScreen(inputViewModel: AgenteViewModel, modifier: Modifier = Modifier) {
 

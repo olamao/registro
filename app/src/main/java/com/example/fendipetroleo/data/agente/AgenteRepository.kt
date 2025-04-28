@@ -1,4 +1,4 @@
-package com.example.fendipetroleo
+package com.example.fendipetroleo.data.agente
 
 class AgenteRepository(private val agenteDao: AgenteDao) {
 

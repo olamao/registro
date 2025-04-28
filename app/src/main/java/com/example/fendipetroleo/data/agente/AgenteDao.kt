@@ -1,4 +1,4 @@
-package com.example.fendipetroleo
+package com.example.fendipetroleo.data.agente
 
 import androidx.room.Dao
 import androidx.room.Insert

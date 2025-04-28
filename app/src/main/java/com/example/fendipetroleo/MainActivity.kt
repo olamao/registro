@@ -10,6 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
+import com.example.fendipetroleo.data.agente.AgenteDatabase
+import com.example.fendipetroleo.data.agente.AgenteRepository
 import com.example.fendipetroleo.ui.theme.FendipetroleoTheme
 
 class MainActivity : ComponentActivity() {

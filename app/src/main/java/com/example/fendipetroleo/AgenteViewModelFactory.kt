@@ -2,6 +2,7 @@ package com.example.fendipetroleo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.fendipetroleo.data.agente.AgenteRepository
 
 class AgenteViewModelFactory(private val repository: AgenteRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
