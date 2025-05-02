@@ -3,18 +3,17 @@ package com.example.fendipetroleo
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fendipetroleo.data.agente.Agente
-import com.example.fendipetroleo.data.agente.AgenteRepository
-import com.example.fendipetroleo.data.volumen.Sale
-import com.example.fendipetroleo.data.volumen.SaleRepository
+import com.example.fendipetroleo.data.DMRepository
+import com.example.fendipetroleo.data.despachos.Despacho
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.Flow
 
-class AgenteViewModel(private val repository1: AgenteRepository, private val repository2: SaleRepository) : ViewModel() {
+class DMViewModel(private val repository1: DMRepository) : ViewModel() {
 
     val allAgents: Flow<List<Agente>> = repository1.getAllAgents()
-    val allVolume: Flow<List<Sale>> = repository2.getAllSales()
+    val allDespachos: Flow<List<Despacho>> = repository1.getAllDespachos()
 
     fun addAgent(agente: Agente) {
         viewModelScope.launch {
@@ -30,4 +29,20 @@ class AgenteViewModel(private val repository1: AgenteRepository, private val rep
             }
         }
     }
+
+    suspend fun getDespachoByIdSuspend(id: Int): Despacho {
+        return withContext(Dispatchers.IO) {
+            repository1.getDespachoById(id)
+        }
+    }
+
+    fun getDespachoById(id: Int) {
+
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                repository1.getDespachoById(id)
+            }
+        }
+    }
 }
+

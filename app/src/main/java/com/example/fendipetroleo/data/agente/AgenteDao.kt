@@ -10,9 +10,9 @@ interface AgenteDao {
     @Insert
     suspend fun addAgent(agente: Agente)
 
-    @Query("SELECT * FROM minoristascsv")
+    @Query("SELECT * FROM agentes")
      fun getAllAgents(): Flow<List<Agente>>
 
-    @Query("SELECT * FROM minoristascsv WHERE codigoSicom = :id")
+    @Query("SELECT * FROM agentes WHERE codigoSicom = :id")
     suspend fun getUserById(id: Int): Agente?
 }

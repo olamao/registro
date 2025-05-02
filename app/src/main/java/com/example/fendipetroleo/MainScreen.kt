@@ -19,12 +19,13 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.example.fendipetroleo.data.DMRepository
 import com.example.fendipetroleo.pages.AsistoPage
 import com.example.fendipetroleo.pages.InformacionPage
 import com.example.fendipetroleo.pages.SettingsPage
 
 @Composable
-fun MainScreen(inputViewModel: AgenteViewModel, modifier: Modifier = Modifier) {
+fun MainScreen(inputViewModel: DMViewModel, inputRepository: DMRepository, modifier: Modifier = Modifier) {
 
     val navItemList = listOf(
         NavItem("Informacion", Icons.Default.Home,0),
@@ -66,15 +67,15 @@ fun MainScreen(inputViewModel: AgenteViewModel, modifier: Modifier = Modifier) {
             }
         }
     ) { innerPadding ->
-        ContentScreen(inputViewModel, modifier = Modifier.padding(innerPadding),selectedIndex)
+        ContentScreen(inputViewModel, inputRepository, modifier = Modifier.padding(innerPadding), selectedIndex)
     }
 }
 
 @Composable
-fun ContentScreen(inputViewModel: AgenteViewModel, modifier: Modifier = Modifier, selectedIndex : Int) {
+fun ContentScreen(inputViewModel: DMViewModel, inputRepository: DMRepository, modifier: Modifier = Modifier, selectedIndex : Int) {
     when(selectedIndex){
         0-> InformacionPage()
-        1-> AsistoPage(inputViewModel)
+        1-> AsistoPage(inputViewModel, inputRepository)
         2-> SettingsPage()
     }
 }
