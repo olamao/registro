@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.fendipetroleo"
+    namespace = "com.example.work"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.fendipetroleo"
+        applicationId = "com.example.work"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
