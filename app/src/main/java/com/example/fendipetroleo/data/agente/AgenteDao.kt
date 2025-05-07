@@ -8,11 +8,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AgenteDao {
     @Insert
-    suspend fun addAgent(agente: Agente)
+    suspend fun addAgent(agent: Agent)
 
-    @Query("SELECT * FROM minoristascsv")
-     fun getAllAgents(): Flow<List<Agente>>
+    @Query("SELECT * FROM agentes")
+     fun getAllAgents(): Flow<List<Agent>>
 
-    @Query("SELECT * FROM minoristascsv WHERE codigoSicom = :id")
-    suspend fun getUserById(id: Int): Agente?
+    @Query("SELECT * FROM agentes WHERE codigoSicom = :id")
+    suspend fun getUserById(id: Int): Agent
 }

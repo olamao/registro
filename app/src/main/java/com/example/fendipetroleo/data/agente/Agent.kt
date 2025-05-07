@@ -4,16 +4,18 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "minoristascsv")
-data class Agente(
+@Entity(tableName = "agentes")
+data class Agent(
     @PrimaryKey(autoGenerate = false)
-    val codigoSicom: Int?,
+    val codigoSicom: Int,
     @ColumnInfo(name = "departamento")
-    val departamento: String?,
+    val departamento: String,
     @ColumnInfo(name = "municipio")
-    val municipio: String?,
+    val municipio: String,
+    @ColumnInfo(name = "codigoMun")
+    val codigoMun: Int,
     @ColumnInfo(name = "razonSocial")
-    val razonSocial: String?,
+    val razonSocial: String,
     @ColumnInfo(name = "tipo")
-    val tipo: String?
+    val tipo: String
 )

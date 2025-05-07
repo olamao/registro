@@ -10,58 +10,44 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
-import com.example.fendipetroleo.data.agente.AgenteDatabase
-import com.example.fendipetroleo.data.agente.AgenteRepository
-import com.example.fendipetroleo.data.volumen.SaleDatabase
-import com.example.fendipetroleo.data.volumen.SaleRepository
+import com.example.fendipetroleo.data.DMDatabase
+import com.example.fendipetroleo.data.DMRepository
 import com.example.fendipetroleo.ui.theme.FendipetroleoTheme
 
 class MainActivity : ComponentActivity() {
 
-    private lateinit var database1: AgenteDatabase
-    private lateinit var database2: SaleDatabase
-    private lateinit var repository1: AgenteRepository
-    private lateinit var repository2: SaleRepository
-    private lateinit var viewModelFactory: AgenteViewModelFactory
-    private lateinit var viewModel: AgenteViewModel
+    private lateinit var database1: DMDatabase
+    private lateinit var repository1: DMRepository
+    private lateinit var viewModelFactory: DMViewModelFactory
+    private lateinit var viewModel: DMViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // Initialize the database
+
+        database1 = Room.databaseBuilder(
+            applicationContext,
+            DMDatabase::class.java, "agentes"
+        )
+            .fallbackToDestructiveMigration()
+            .createFromAsset("informacion.db")
+            .build()
+
+        // Initialize the DAO
+        val agenteDao = database1.agenteDao()
+        val despachoDao = database1.saleDao()
+        // Initialize the repository
+        repository1 = DMRepository(agenteDao, despachoDao)
+        // Initialize the factory
+        viewModelFactory = DMViewModelFactory(repository1)
+        // Initialize the viewmodel
+        viewModel = ViewModelProvider(this, viewModelFactory)[DMViewModel::class.java]
+
         setContent {
-
-            // Initialize the database
-
-
-            database1 = Room.databaseBuilder(
-                applicationContext,
-                AgenteDatabase::class.java, "agentes"
-            )
-                .createFromAsset("sqlitedatabase.db")
-                .build()
-
-            database2 = Room.databaseBuilder(
-                applicationContext,
-                SaleDatabase::class.java, "volumen"
-            )
-                .createFromAsset("sqlitedatabase.db")
-                .build()
-
-            // Initialize the DAO
-            val agenteDao = database1.agenteDao()
-            val saleDao = database2.saleDao()
-            // Initialize the repository
-            repository1 = AgenteRepository(agenteDao)
-            repository2 = SaleRepository(saleDao)
-            // Initialize the factory
-            viewModelFactory = AgenteViewModelFactory(repository1, repository2)
-            // Initialize the viewmodel
-            viewModel = ViewModelProvider(this, viewModelFactory)[AgenteViewModel::class.java]
-
-
             FendipetroleoTheme {
-                MainScreen(viewModel)
-
+                MainScreen(viewModel, repository1)
             }
         }
     }

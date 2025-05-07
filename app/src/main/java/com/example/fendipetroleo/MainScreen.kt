@@ -3,7 +3,9 @@ package com.example.fendipetroleo
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Badge
@@ -19,17 +21,18 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.example.fendipetroleo.pages.AsistoPage
-import com.example.fendipetroleo.pages.InformacionPage
-import com.example.fendipetroleo.pages.SettingsPage
+import com.example.fendipetroleo.data.DMRepository
+import com.example.fendipetroleo.pages.AgentesPage
+import com.example.fendipetroleo.pages.HomePage
+import com.example.fendipetroleo.pages.DespachosPage
 
 @Composable
-fun MainScreen(inputViewModel: AgenteViewModel, modifier: Modifier = Modifier) {
+fun MainScreen(inputViewModel: DMViewModel, inputrespository: DMRepository, modifier: Modifier = Modifier) {
 
     val navItemList = listOf(
-        NavItem("Informacion", Icons.Default.Home,0),
-        NavItem("Asisto", Icons.Default.Notifications,0),
-        NavItem("Settings", Icons.Default.Settings,0),
+        NavItem("Home", Icons.Default.Home,0),
+        NavItem("Agentes", Icons.Default.Face,0),
+        NavItem("Despachos", Icons.Default.Menu,0),
     )
 
     var selectedIndex by remember {
@@ -66,15 +69,15 @@ fun MainScreen(inputViewModel: AgenteViewModel, modifier: Modifier = Modifier) {
             }
         }
     ) { innerPadding ->
-        ContentScreen(inputViewModel, modifier = Modifier.padding(innerPadding),selectedIndex)
+        ContentScreen(inputViewModel, inputrespository, modifier = Modifier.padding(innerPadding),selectedIndex)
     }
 }
 
 @Composable
-fun ContentScreen(inputViewModel: AgenteViewModel, modifier: Modifier = Modifier, selectedIndex : Int) {
+fun ContentScreen(inputViewModel: DMViewModel, inputrespository: DMRepository, modifier: Modifier = Modifier, selectedIndex : Int) {
     when(selectedIndex){
-        0-> InformacionPage()
-        1-> AsistoPage(inputViewModel)
-        2-> SettingsPage()
+        0-> HomePage(inputViewModel)
+        1-> AgentesPage(inputViewModel, inputrespository)
+        2-> DespachosPage(inputViewModel, inputrespository)
     }
 }

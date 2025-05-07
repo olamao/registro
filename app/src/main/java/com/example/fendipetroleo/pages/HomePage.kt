@@ -11,9 +11,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
@@ -26,11 +33,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.fendipetroleo.DMViewModel
 import com.example.fendipetroleo.R
 
 @Composable
-fun InformacionPage(modifier: Modifier = Modifier) {
+fun HomePage(inputViewModel: DMViewModel, modifier: Modifier = Modifier) {
 
+    var codigoMun by remember { mutableIntStateOf(154) }
     val context = LocalContext.current
     val displayMetrics = context.resources.displayMetrics
     val widthPx = displayMetrics.widthPixels
@@ -39,7 +48,8 @@ fun InformacionPage(modifier: Modifier = Modifier) {
     val heightDp = with(LocalDensity.current) { (heightPx/3).toDp() }
     val secondHeight = with(LocalDensity.current) { (heightPx/6f).toDp() }
 
-
+    val allAgents = inputViewModel.allAgents.collectAsState(initial = emptyList())
+    val newAgentList = allAgents.value.toList()
 
     Thread {
         //Do your database´s operations here
@@ -98,29 +108,8 @@ fun InformacionPage(modifier: Modifier = Modifier) {
                 }
             }
 
-            Box(contentAlignment = Alignment.TopCenter,
-                modifier = Modifier
-                    .fillMaxWidth()
-                //.height(secondHeight)
-            ) {
-                Text(modifier = Modifier
-                    .padding(top = 10.dp),
-                    text = "ASAMBLEA EXTRAORDINARIA 68°\n",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFF004877)  //004877
-                )
-                //Registro()
-            }
-            Text(
-                text =  "Día y fecha: Miércoles, 30 de abril de 2025\n" +
-                        "Ciudad: \t\t\t\t Bogotá, D.C.\n" +
-                        "Lugar:\t\t\t\t\t\t Hotel Wyndham Bogotá \n" +
-                        "Dirección:\t\t Av. Esperanza N° 51-40\n" +
-                        "Hora:\t\t\t\t\t\t 9:30 a.m.",
-                fontSize = 15.sp,
-                color = Color(0xFF004877)  //004877
-            )
+
+
             Box(contentAlignment = Alignment.TopCenter,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -128,7 +117,7 @@ fun InformacionPage(modifier: Modifier = Modifier) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically){
                     Text(
-                        text = "Organizada por:",
+                        text = "Administrado por:",
                         fontSize = 15.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = Color(0xFF004877))
@@ -138,6 +127,13 @@ fun InformacionPage(modifier: Modifier = Modifier) {
                     )
                 }
             }
+            Box(contentAlignment = Alignment.TopCenter,
+                modifier = Modifier
+                    .fillMaxWidth()
+                //.height(secondHeight)
+            ) {}
+
+
         }
     }
 }
